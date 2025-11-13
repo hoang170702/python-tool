@@ -24,7 +24,7 @@ mẫu :
 python api_tool.py --mode single --curl "curl --location \"{url}\" --header \"Content-Type: application/json\" --data \"{\\\"task\\\": \\\"task 4\\\", \\\"done\\\": true}\""  -r 100 -c 1
 
 curl cung cấp:
-curl --location 'http://localhost:8058/qr-merchant-nap-service/api/v2/merchant/get-all-mcc' \
+curl --location 'http://localhost:8058/merchant/get-all-mcc' \
 --header 'Content-Type: application/json' \
 --data '{
     "id":"1212-12121-12121-12121",
