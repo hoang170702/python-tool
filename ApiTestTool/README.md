@@ -17,7 +17,7 @@ python api_tool.py --mode single --curl "curl --location \"{url}\" --header \"Co
 Dán CURL của bạn xuống phần "curl cung cấp"
 ````
 ```` 
-dưới đây là mẫu python bắn api stress test, hãy dùng curl tôi cung cấp để thêm vào mẫu python api, lưu ý chỉ cần chung cấp mẫu mới cho tôi là đc, không cần dài dòng thêm
+dưới đây là mẫu python bắn api stress test, hãy dùng curl tôi cung cấp để thêm vào mẫu python api, lưu ý chỉ cần cung cấp mẫu mới cho tôi là đc, không cần dài dòng thêm
 
 
 mẫu :
