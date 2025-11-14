@@ -1,4 +1,5 @@
 import shlex
+import sys
 
 
 def parse_curl_command(curl_cmd: str):
