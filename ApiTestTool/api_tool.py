@@ -5,19 +5,16 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
+from utils.json_parse import try_json_parse
+from utils.gen_uuid import inject_unique_id
 from utils.curl_parser import validate_curl_format, parse_curl_command
-
-
-def try_json_parse(text):
-    try:
-        return  json.loads(text)
-    except (json.JSONDecodeError,TypeError ):
-        return None
 
 
 
 def send_request(context, timeout=10):
     start_time = time.time()
+    # dùng khi request có filed unique
+    # inject_unique_id(context)
     try:
         response = requests.request(
             method=context['method'],
