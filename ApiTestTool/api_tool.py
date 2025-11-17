@@ -5,6 +5,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
+from file.file_handle import read_file_safe
 from utils.cmd_parse import  generate_context
 from utils.json_parse import try_json_parse
 
@@ -97,8 +98,9 @@ def print_result(result):
 
 
 def main():
-    context = generate_context()
 
+    raw = read_file_safe("D:\\code\\PycharmProjects\\PythonProject\\ApiTestTool\\file\\raw.txt")
+    context = generate_context(raw)
     if context['mode'] == 'single':
         result = send_request(context)
         print_result(result)

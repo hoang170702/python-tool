@@ -1,0 +1,10 @@
+curl --location 'http://localhost:8058/qr-merchant-nap-service/api/v2/merchant/get-ward-by-province' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id":"1212-12121-12121-12121",
+    "time":"1111111",
+    "channel":"123123",
+    "data": {
+        "provinceCode": "79"
+    }
+}'

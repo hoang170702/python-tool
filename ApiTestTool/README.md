@@ -2,34 +2,20 @@
 
 ## HƯỚNG DẪN TEST CURL
 ```` 
-python api_tool.py --mode single --curl "curl --location \"{url}\"" --> api không tham số
-````
-
-```` 
-python api_tool.py --mode single --curl "curl --location \"{url}\" --header \"Content-Type: application/json\" --data \"{\\\"task\\\": \\\"task 4\\\", \\\"done\\\": true}\"" --> api có tham số
-````
-## Đưa prompt cho GPT
-```` 
--r -> số lượng request
--c -> số lượng luồng
-````
-````
-Dán CURL của bạn xuống phần "curl cung cấp"
+Dán curl vào file ApiTestTool\file\raw.txt
 ````
 ```` 
-dưới đây là mẫu python bắn api stress test, hãy dùng curl tôi cung cấp để thêm vào mẫu python api, lưu ý chỉ cần cung cấp mẫu mới cho tôi là đc, không cần dài dòng thêm
+chạy cmd: python api_tool.py
+````
+```` 
+Chọn option: 
 
-
-mẫu :
-python api_tool.py --mode single --curl "curl --location \"{url}\" --header \"Content-Type: application/json\" --data \"{\\\"task\\\": \\\"task 4\\\", \\\"done\\\": true}\""  -r 100 -c 1
-
-curl cung cấp:
-curl --location 'http://localhost:8058/merchant/get-all-mcc' \
---header 'Content-Type: application/json' \
---data '{
-    "id":"1212-12121-12121-12121",
-    "time":"1111111",
-    "channel":"123123",
-    "data": {}
-}'
+=== TOOL GENERATE PYTHON COMMAND ===
+Mode (single/stress) [default: stress]: (single - chạy 1 request, stress - chạy nhiều request đồng thời)
+Method (POST/GET) [default: POST]: (chọn phương thức post, get)
+Requests (-r) [default:100]: 10 (tổng số lượng request muốn bắn)
+Concurrency (-c) [default:1]: 1 (tổng số lượng luồng, thường sẽ stress test trên một luồng)
+````
+```` 
+Nếu request có một field đặc biệt, cần khác nhau mỗi lần bắn request, có thể custom ở file gen_uuid.py
 ````

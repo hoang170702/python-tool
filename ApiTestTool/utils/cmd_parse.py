@@ -28,16 +28,26 @@ def parse_curl_full(raw: str):
 
     return url, headers, data
 
-def generate_context():
+def generate_context(raw: str):
     print("=== TOOL GENERATE PYTHON COMMAND ===")
 
-    mode = input("Mode (single/stress): ").strip()
-    method = input("Method (POST/GET): ").upper().strip()
-    r = input("Requests (-r): ").strip()
-    c = input("Concurrency (-c): ").strip()
-    curl = input("Curl : ").strip()
+    mode = input("Mode (single/stress) [default: stress]: ").strip()
+    if not mode:
+        mode = "stress"
 
-    url, headers, data_json = parse_curl_full(curl)
+    method = input("Method (POST/GET) [default: POST]: ").upper().strip()
+    if not method:
+        method = "POST"
+
+    r = input("Requests (-r) [default:100]: ").strip()
+    if not r:
+        r = "100"
+
+    c = input("Concurrency (-c) [default:1]: ").strip()
+    if not c:
+        c = "1"
+
+    url, headers, data_json = parse_curl_full(raw)
 
     if not url.startswith("http"):
         raise ValueError("Không lấy được URL từ curl!")
