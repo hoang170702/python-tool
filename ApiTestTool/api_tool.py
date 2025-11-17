@@ -5,10 +5,8 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
+from utils.cmd_parse import  generate_context
 from utils.json_parse import try_json_parse
-from utils.gen_uuid import inject_unique_id
-from utils.curl_parser import validate_curl_format, parse_curl_command
-
 
 
 def send_request(context, timeout=10):
@@ -38,7 +36,6 @@ def send_request(context, timeout=10):
             'error': str(e),
             'duration': duration
         }
-
 
 
 def run_stress_test(context, total_req, concurrency):
@@ -75,6 +72,8 @@ def run_stress_test(context, total_req, concurrency):
         for err in failed[:5]:
             print(f"- {err['error']}")
 
+
+
 def print_result(result):
     if not result['success']:
         print(f"\033[91m❌ Lỗi kết nối: {result['error']}\033[0m")
@@ -98,29 +97,13 @@ def print_result(result):
 
 
 def main():
-    parser = argparse.ArgumentParser(description= '🔥 Công cụ test API từ lệnh curl - Thay thế Postman & Stress test')
-    parser.add_argument('--mode', choices=['single', 'stress'], default='single')
-    parser.add_argument('--curl', required=True)
-    parser.add_argument('-r', '--requests', type=int, default=1)
-    parser.add_argument('-c', '--concurrency', type=int, default=1)
+    context = generate_context()
 
-    args = parser.parse_args()
-
-    # Hiển thị banner
-    print("\033[95m" + "="*50)
-    print(" PYTHON API TESTING TOOL - CURL BASED")
-    print("="*50 + "\033[0m")
-
-
-    validate_curl_format(args.curl)
-
-    context = parse_curl_command(args.curl)
-    if args.mode == 'single':
+    if context['mode'] == 'single':
         result = send_request(context)
         print_result(result)
     else:
-        run_stress_test(context, args.requests, args.concurrency)
-
+        run_stress_test(context, context['requests'], context['concurrency'])
 
 
 if __name__ == "__main__":
