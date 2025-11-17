@@ -60,13 +60,14 @@ def run_stress_test(context, total_req, concurrency):
     total_time = time.time() - start_time
     successful = [r for r in results if r['success']]
     failed = [r for r in results if not r['success']]
-
+    avg_ms = (total_time / total_req) * 1000
 
     print("\n\n\033[92m===== KẾT QUẢ STRESS TEST =====\033[0m")
     print(f"Tổng thời gian: {total_time:.2f}s")
     print(f"Tổng requests: {total_req} | Thành công: \033[92m{len(successful)}\033[0m | Thất bại: \033[91m{len(failed)}\033[0m")
     print(f"Tỷ lệ thành công: {len(successful) / total_req * 100:.1f}%")
-    print(f"Requests/giây: {total_req / total_time:.2f}")
+    # print(f"Requests/giây: {total_req / total_time:.2f}")
+    print(f"Trung bình 1 request: {avg_ms:.2f} ms")
 
     if failed:
         print("\n\033[91mChi tiết lỗi:\033[0m")
@@ -75,7 +76,7 @@ def run_stress_test(context, total_req, concurrency):
 
 
 
-def print_result(result):
+def print_result(result, num_requests=1):
     if not result['success']:
         print(f"\033[91m❌ Lỗi kết nối: {result['error']}\033[0m")
         return
@@ -88,7 +89,13 @@ def print_result(result):
             print(f"\033[92mResponse Code: [{code}] {message}\033[0m")
         else:
             print(f"\033[91m⚠️  Error Code: [{code}] {message}\033[0m")
-    print(f"\033[94mDuration: {result['duration']:.2f}s\033[0m")
+
+    duration_s = result['duration']
+    print(f"\033[94mDuration: {duration_s:.2f}s\033[0m")
+
+    avg_ms = (duration_s / num_requests) * 1000
+    print(f"\033[95mTrung bình 1 request: {avg_ms:.2f} ms\033[0m")
+
     print("\n\033[93mResponse:\033[0m")
     if 'data' in result['json']:
         print(json.dumps(result['json']['data'], indent=2, ensure_ascii=False))
@@ -98,7 +105,6 @@ def print_result(result):
 
 
 def main():
-
     raw = read_file_safe("D:\\code\\PycharmProjects\\PythonProject\\ApiTestTool\\file\\raw.txt")
     context = generate_context(raw)
     if context['mode'] == 'single':
