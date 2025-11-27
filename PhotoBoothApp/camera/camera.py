@@ -1,5 +1,6 @@
 import os.path
 import time
+from datetime import datetime
 
 import cv2
 
@@ -30,7 +31,11 @@ def open_camera() :
 def generate_image_path():
     base_dir = os.path.dirname(os.path.abspath( __file__))
 
-    static_captures = os.path.abspath(os.path.join(base_dir, "..", "static", "captures"))
+    date_forder = datetime.now().strftime("%Y-%m-%d")
+
+    static_captures = os.path.abspath(
+        os.path.join(base_dir, "..", "static", "captures", date_forder)
+    )
 
     os.makedirs(static_captures, exist_ok=True)
 
