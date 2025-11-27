@@ -4,6 +4,9 @@ from datetime import datetime
 
 import cv2
 
+from PhotoBoothApp.color.image_color_conversion import to_pil_image
+
+
 def open_camera() :
     cap = cv2.VideoCapture(0)
 
@@ -26,6 +29,13 @@ def open_camera() :
             file_path = generate_image_path()
             capture_save_image(file_path, frame)
             print("Saved:", file_path)
+
+            # ===== TEST CHUYỂN MÀU PIL =====
+            pil_img = to_pil_image(frame)
+            test_path = file_path.replace(".jpg", "_pil.jpg")
+            pil_img.save(test_path)
+            print("Saved PIL test:", test_path)
+            # ===============================
 
 
 def generate_image_path():
