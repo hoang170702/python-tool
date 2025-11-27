@@ -1,3 +1,6 @@
+import os.path
+import time
+
 import cv2
 
 def open_camera() :
@@ -7,12 +10,35 @@ def open_camera() :
         print("Can't open camera")
         exit(1)
 
-    print("Open camera successfully, press q to exit")
+    print("Press 'SPACE' to capture an image, 'ESC' to quit.")
     while True:
         ret, frame = cap.read()
         if not ret:
             print("Can't read frame")
             break
         cv2.imshow("frame", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+
+        key = cv2.waitKey(1)
+        if key == 27 :
             break
+        if key == 32 :
+            file_path = generate_image_path()
+            capture_save_image(file_path, frame)
+            print("Saved:", file_path)
+
+
+def generate_image_path():
+    base_dir = os.path.dirname(os.path.abspath( __file__))
+
+    static_captures = os.path.abspath(os.path.join(base_dir, "..", "static", "captures"))
+
+    os.makedirs(static_captures, exist_ok=True)
+
+    file_name = f"capture_{int(time.time())}.jpg"
+
+    return os.path.join(static_captures, file_name)
+
+
+
+def capture_save_image(image_path, frame):
+    cv2.imwrite(image_path, frame)
