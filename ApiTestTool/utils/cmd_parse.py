@@ -43,9 +43,9 @@ def generate_context(raw: str):
     if not r:
         r = "100"
 
-    c = input("Concurrency (-c) [default:1]: ").strip()
+    c = input("Concurrency (-c) [default:100]: ").strip()
     if not c:
-        c = "1"
+        c = "100"
 
     url, headers, data_json = parse_curl_full(raw)
 

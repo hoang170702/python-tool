@@ -1,10 +1,24 @@
-curl --location 'http://localhost:8058/qr-merchant-nap-service/api/v2/merchant/get-ward-by-province' \
+curl --location 'http://localhost:8058/qr-merchant-nap-service/api/v2/merchant/search-merchant' \
 --header 'Content-Type: application/json' \
 --data '{
-    "id":"1212-12121-12121-12121",
-    "time":"1111111",
-    "channel":"123123",
+    "requestId": "b4ef62e2-28c3-4b7d-b053-2eb47513a55e",
+    "partnerId": "MERCHANT_NAPAS",
+    "channelId": "MERCHANT_NAPAS",
+    "channel": "MERCHANT_NAPAS",
+    "id": "5e278522-d4e5-48c1-be63-35eee6046c34",
+    "time": "2025-08-14 10:50:07",
+    "requestTime": "2025-08-14 10:50:07",
     "data": {
-        "provinceCode": "79"
+        "merchantId": "",
+        "status": "ALL",
+        "fromDate": "01/08/2025",
+        "toDate": "09/09/2025",
+        "branch": "",
+        "merchantClassId": null,
+        "saleChannelId": null
+    },
+    "paginate": {
+        "pageNo": 1,
+        "pageSize": 10
     }
 }'
